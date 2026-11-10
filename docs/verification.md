@@ -1,6 +1,6 @@
 # Verification evidence
 
-Local test command: `lua tests/run.lua` — **28 passed, 0 failed**.
+Local test command: `lua tests/run.lua` — **29 passed, 0 failed**.
 
 Local interpreter: **Lua 5.5.1**. The target RuneScape API documents Lua **5.4.8**; a separate 5.4.8 interpreter was not installed on this Mac. The source uses the shared 5.4 syntax and standard-library subset, but host execution remains necessary.
 
@@ -12,6 +12,8 @@ Packaging verification (`python3 scripts/package.py`) runs the full suite and sy
 
 Permission-error regression: the original code failed the new no-Tracking test because rolling remained disabled. The revised entry point uses the documented valid self entity's displayName; both permission arrays are empty. New tests exercise settings and a completed spin with Tracking denied, two named profiles across restart, stale-frame cancellation on name changes, and waiting without database access for missing/invalid entities or empty names.
 
-Blank-Settings regression: the earlier test host incorrectly exposed ui.AlignMode.LEFT. The official enum only has TOPLEFT, CENTRE, BOTTOMRIGHT and JUSTIFY. Restricting the test host and validating AlignTo arguments made the entry-point tests fail at the first label, matching the screenshot's partial construction. Changing the label helper to TOPLEFT makes the 580×300 Settings test render rows and pagination. The roster tests now cover all 66 choices across settings pages, explicitly include Abomination and Char, and verify that expansion preserves existing off/weight values while new entries default to On/1×.
+Blank-Settings regression: the earlier test host incorrectly exposed ui.AlignMode.LEFT. The official enum only has TOPLEFT, CENTRE, BOTTOMRIGHT and JUSTIFY. Restricting the test host and validating AlignTo arguments made the entry-point tests fail at the first label, matching the screenshot's partial construction. Changing the label helper to TOPLEFT makes the 580×300 Settings test render rows and pagination. The roster tests now cover all 57 choices across settings pages, explicitly include Abomination and Char, and verify that expansion preserves existing off/weight values while new entries default to On/1×. The updated roster assertions retain the four dungeon finales and exclude their intermediate bosses and WildyWyrm.
 
 Actual RuneScape-client checks are pending: current beta loader accepting the refreshed permission-free manifest; UI text/clipping at real scale; visible animation cadence; closing and resizing native layers; character switching and delayed entity/name availability; local data surviving client restart. Follow the README checklist. No live-client verification is claimed.
+
+Settings navigation now wraps in both directions. The boundary test covers one-boss pages, multi-boss pages with a partial last page, ordinary forward/back movement, no preference writes during navigation, and disabled navigation when the full roster fits on a single page. Page traversal tests use bounded loops so circular navigation cannot hang the suite.

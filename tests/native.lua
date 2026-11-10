@@ -1,5 +1,28 @@
 return function(test,eq,near)
     local Host=require('tests/host')
+    test('Settings navigation wraps both ways and disables only for a single page',function()
+        -- Exercise one-boss pages and multi-boss pages with a partial final page.
+        for _,size in ipairs({{240,200},{425,480}}) do
+            local host=Host.new(); host:start()
+            local settings=host:layer('Settings',size[1],size[2])
+            assert(host:text(settings,'Amascut, the Devourer'))
+            assert(host:button(settings,'Previous').enabled)
+            host:click(host:button(settings,'Previous'))
+            assert(host:text(settings,'Yakamaru'),'Previous from first page must reach the last boss')
+            assert(host:button(settings,'Next').enabled)
+            host:click(host:button(settings,'Next'))
+            assert(host:text(settings,'Amascut, the Devourer'),'Next from last page must return to first')
+            host:click(host:button(settings,'Next'))
+            assert(not host:text(settings,'Amascut, the Devourer'))
+            host:click(host:button(settings,'Previous'))
+            assert(host:text(settings,'Amascut, the Devourer'))
+            eq(host.writes,0)
+        end
+        local host=Host.new(); host:start()
+        local settings=host:layer('Settings',425,6000)
+        assert(host:text(settings,'Amascut, the Devourer') and host:text(settings,'Yakamaru'))
+        assert(not host:button(settings,'Previous').enabled and not host:button(settings,'Next').enabled)
+    end)
     test('Settings builds beyond its heading using documented alignment values',function()
         local host=Host.new({permission=false}); host:start()
         local settings=host:layer('Settings',580,300)
@@ -69,11 +92,12 @@ return function(test,eq,near)
             host.failSave=true
             host:click(host:button(host:row(settings,'Amascut, the Devourer'),'On'))
             check(settings,settings,0,0); check(ribbon,ribbon,0,0)
-            repeat
+            for _=1,#require('bosses') do
                 local nextButton=host:button(settings,'Next')
                 if not nextButton.enabled then break end
                 host:click(nextButton); check(settings,settings,0,0)
-            until false
+                if host:text(settings,'Amascut, the Devourer') then break end
+            end
         end
     end)
 
@@ -93,12 +117,13 @@ return function(test,eq,near)
         local settings=host:layer('Settings'); local ribbon=host:layer('Content',425,265)
         assert(host:button(ribbon,'Roll a boss').enabled)
         local seen={}
-        repeat
+        for _=1,#require('bosses') do
             for _,boss in ipairs(require('bosses')) do if host:text(settings,boss.name) then seen[boss.id]=true end end
             local nextButton=host:button(settings,'Next')
             if not nextButton.enabled then break end
             host:click(nextButton)
-        until false
+            if host:text(settings,'Amascut, the Devourer') then break end
+        end
         for _,boss in ipairs(require('bosses')) do assert(seen[boss.id],boss.name..' inaccessible') end
         host:click(host:button(ribbon,'Roll a boss')); local callback=host:frameCallback(); assert(callback)
         host:click(host:button(ribbon,'Rolling...')); eq(host.draws,1)

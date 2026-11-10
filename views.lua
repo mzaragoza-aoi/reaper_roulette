@@ -212,13 +212,13 @@ function Views.settings(root, controller)
         end
         local navY=top+perPage*rowHeight+4
         local previous=button(self.layer,'Previous',12,navY,80,30,action(function()
-            self.page=self.page-1; self:refresh(true)
+            self.page=self.page>1 and self.page-1 or pages; self:refresh(true)
         end))
-        previous.enabled=self.page>1
+        previous.enabled=pages>1
         local nextButton=button(self.layer,'Next',w-80,navY,68,30,action(function()
-            self.page=self.page+1; self:refresh(true)
+            self.page=self.page<pages and self.page+1 or 1; self:refresh(true)
         end))
-        nextButton.enabled=self.page<pages
+        nextButton.enabled=pages>1
         local pageLabel=label(self.layer,tostring(self.page)..' / '..tostring(pages),96,navY,math.max(1,w-180),30,MUTED)
         pageLabel:AlignTo(ui.AlignMode.CENTRE)
     end

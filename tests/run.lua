@@ -63,11 +63,15 @@ test('roster includes combat and skilling encounters plus Abomination and Char o
     end
     assert(seen.amascut and seen.ivar and seen.silverquill and seen.ghrazi_blood_knights and seen.flesh_hatcher)
     assert(seen.nex and seen.nex_aod and seen.rex_matriarchs and seen.legiones)
-    for _,id in ipairs({'abomination','char','astellarn','beastmaster_durzag','crassian_leviathan',
-            'dragith_nurn','exiled_kalphite_queen','giant_mimic','kezalam','masuta','osseous',
-            'sanctum_guardian','taraket','tormented_wraith','verak_lith','vermyx','wildywyrm','yakamaru',
+    for _,id in ipairs({'abomination','char','beastmaster_durzag',
+            'dragith_nurn','exiled_kalphite_queen','giant_mimic','osseous','tormented_wraith','yakamaru',
+            'seiryu','black_stone_dragon','ambassador','nakatra',
             'croesus','gate_of_elidinis'}) do
         assert(seen[id],'Missing requested roster entry: '..id)
+    end
+    for _,id in ipairs({'astellarn','kezalam','masuta','sanctum_guardian','taraket',
+            'verak_lith','vermyx','crassian_leviathan','wildywyrm'}) do
+        assert(not seen[id],'Removed encounter remains in roster: '..id)
     end
     assert(not seen.araxxor) -- Araxxor/Araxxi are one encounter.
     local prefs = assert(require('preferences').load(database(), 'A', bosses))

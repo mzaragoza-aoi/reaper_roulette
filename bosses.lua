@@ -3,6 +3,8 @@
 -- https://runescape.wiki/w/Bosses#Skilling_bosses
 -- Original Soul Reaper assignments remain first; additional encounters follow.
 -- Keep IDs/order stable for existing preferences. Do not duplicate difficulty modes.
+-- ED1, ED2, ED3 and Sanctum of Rebirth use only their final bosses.
+-- WildyWyrm is excluded at the user's request.
 return {
     {id='amascut', name='Amascut, the Devourer', short='Amascut'},
     {id='ambassador', name='The Ambassador', short='Ambassador'},
@@ -56,21 +58,12 @@ return {
     -- Additional combat encounters, including the explicitly requested Char.
     -- These are suggestions; they are not all eligible Soul Reaper assignments.
     {id='abomination', name='Abomination', short='Abomination'},
-    {id='astellarn', name='Astellarn', short='Astellarn'},
     {id='beastmaster_durzag', name='Beastmaster Durzag', short='Beastmaster'},
     {id='char', name='Char', short='Char'},
-    {id='crassian_leviathan', name='Crassian Leviathan', short='Crassian Leviathan'},
     {id='dragith_nurn', name='Dragith Nurn', short='Dragith Nurn'},
     {id='exiled_kalphite_queen', name='Exiled Kalphite Queen', short='Exiled KQ'},
     {id='giant_mimic', name='Giant Mimic', short='Giant Mimic'},
-    {id='kezalam', name='Kezalam, the Wanderer', short='Kezalam'},
-    {id='masuta', name='Masuta the Ascended', short='Masuta'},
     {id='osseous', name='Osseous', short='Osseous'},
-    {id='sanctum_guardian', name='The Sanctum Guardian', short='Sanctum Guardian'},
-    {id='taraket', name='Taraket the Necromancer', short='Taraket'},
     {id='tormented_wraith', name='Tormented wraith', short='Tormented wraith'},
-    {id='verak_lith', name='Verak Lith', short='Verak Lith'},
-    {id='vermyx', name='Vermyx, Brood Mother', short='Vermyx'},
-    {id='wildywyrm', name='WildyWyrm', short='WildyWyrm'},
     {id='yakamaru', name='Yakamaru', short='Yakamaru'},
 }
