@@ -1,0 +1,11 @@
+{
+  "name": "Reaper Roulette",
+  "version": "0.1.0",
+  "contactEmailAddress": "mzaragoza@circletechfl.com",
+  "hasSettingsIcon": true,
+  "hasRibbonIcon": true,
+  "requiredPermissions": [],
+  "optionalPermissions": [],
+  "requiredDependencies": {},
+  "optionalDependencies": {}
+}
